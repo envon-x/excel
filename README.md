@@ -1,2 +1,2 @@
-## Macro VBA - Exportador de gráficos a formato JPG
+## Conjunto de Macros VBA - Excel
 Scripts para excel Macros
