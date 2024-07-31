@@ -1,0 +1,38 @@
+
+Sub Export_Grafico()
+    '####################################
+    'Exportador de graficos. v1.1       #
+    'Mejorado por: Hector R. Bonifacio  #
+    'Cel: 62272072                      #
+    'La Paz - Bolivia                   #
+    'Enero - 2017                       #
+    'Licence: MIT                       #
+    '####################################
+    Dim Grafico As ChartObject
+    Dim Archivo As String
+    Dim NombreArchivo As String
+    Dim ArrayCadena() As String
+    Dim IndexArray, i, k As Integer
+    Dim j As Long
+
+    For Each Grafico In ActiveSheet.ChartObjects
+        NombreArchivo = Grafico.Chart.ChartTitle.Text
+        IndexArray = Len(NombreArchivo)
+        ReDim ArrayCadena(IndexArray - 1)
+        j = 1
+        For i = 0 To IndexArray - 1
+            ArrayCadena(i) = Mid(NombreArchivo, j, [1])
+            If ":" = ArrayCadena(i) Then
+                'ArrayCadena(i) = " "
+                Mid(NombreArchivo, j, [1]) = " "
+            End If
+            
+            If Asc(Mid(NombreArchivo, j, [1])) < 39 Then
+                Mid(NombreArchivo, j, [1]) = " "
+            End If
+         j = j + 1
+        Next
+        Archivo = ThisWorkbook.Path & "\" & NombreArchivo & ".jpg"
+        Grafico.Chart.Export Filename:=Archivo, FilterName:="jpg"
+    Next Grafico
+End Sub
